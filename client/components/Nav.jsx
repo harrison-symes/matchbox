@@ -29,6 +29,7 @@ class Nav extends React.Component {
         </div>
         <div id="navbarMenuHeroA" className={`navbar-menu ${showBurger ? "is-active" : ''}`}>
           <div className="navbar-end">
+            {auth.user && <p className="navbar-item">{auth.user.user_name}</p>}
             {auth.isAuthenticated
               ? <Link to="/" onClick={this.props.logout} className="navbar-item is-large">Logout</Link>
               : <React.Fragment>

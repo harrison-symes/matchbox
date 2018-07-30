@@ -6,6 +6,8 @@ import Login from './Login'
 import Register from './Register'
 import Nav from './Nav'
 
+import Lobby from './Lobby'
+
 const App = ({auth}) => (
   <Router>
     <div className="container has-text-centered">
@@ -20,12 +22,13 @@ const App = ({auth}) => (
       </div>
 
       <div className=''>
-        {!auth.isAuthenticated &&
-          <React.Fragment>
+        {!auth.isAuthenticated
+          ? <React.Fragment>
             <Route exact path="/" component={Login} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
           </React.Fragment>
+          : <Lobby />
         }
       </div>
 
