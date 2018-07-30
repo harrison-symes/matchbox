@@ -1,5 +1,5 @@
 import React from 'react'
-import {HashRouter as Router, Route, Link} from 'react-router-dom'
+import {HashRouter as Router, Route, Link, Switch} from 'react-router-dom'
 import {connect} from 'react-redux'
 
 import Login from './Login'
@@ -7,6 +7,7 @@ import Register from './Register'
 import Nav from './Nav'
 
 import Lobby from './Lobby'
+import Game from './game/Game'
 
 const App = ({auth}) => (
   <Router>
@@ -28,7 +29,12 @@ const App = ({auth}) => (
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
           </React.Fragment>
-          : <Lobby />
+          : <React.Fragment>
+            <Switch>
+              <Route exact path="/game" component={Game} />
+              <Route path="/" component={Lobby} />
+            </Switch>
+          </React.Fragment>
         }
       </div>
 

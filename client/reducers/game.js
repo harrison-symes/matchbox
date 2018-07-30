@@ -2,7 +2,8 @@ const initialState = {
   inGame: false,
   inQueue: false,
   player_one: null,
-  player_two: null
+  player_two: null,
+  id: null
 }
 
 export default (state = initialState, action) => {
@@ -19,8 +20,11 @@ export default (state = initialState, action) => {
         ...state,
         inGame: true,
         inQueue: false,
+        gameReady: false,
+        id: action.game.id,
         player_one: action.game.player_one,
-        player_two: action.game.player_two
+        player_two: action.game.player_two,
+        is_player_one: action.is_player_one
       }
     default: return state
   }

@@ -5,7 +5,7 @@ class Lobby extends React.Component {
   constructor(props) {
     super(props)
 
-    const {socket} = this.props
+    const {socket, dispatch, auth} = this.props
     socket.on('queueJoined', () => {
       console.log("JOin queu");
       this.props.dispatch({
@@ -20,10 +20,14 @@ class Lobby extends React.Component {
 
     socket.on('gameInfo', game => {
       console.log({game});
+      const is_player_one = game.player_one == auth.user.user_id
       this.props.dispatch({
         type: 'JOIN_GAME',
-        game
+        game,
+        is_player_one
       })
+      console.log({props});
+      this.props.history.push('/game')
     })
   }
 
@@ -36,14 +40,6 @@ class Lobby extends React.Component {
     const {game} = this.props
     console.log(game);
     return <div className="section">
-      {game.inGame && <React.Fragment>
-        <h1>You are in a game!</h1>
-        <ul>
-          <li>Game Id: {game.id}</li>
-          <li>Player one ID: {game.player_one}</li>
-          <li>Player two ID: {game.player_two}</li>
-        </ul>
-      </React.Fragment>}
       {game.inQueue
         ? <h1>In Queue..</h1>
         : <button onClick={this.joinQueue}>Join Queue</button>
