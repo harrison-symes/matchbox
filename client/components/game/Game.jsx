@@ -1,26 +1,26 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
+import Cell from './Cell'
+
+import classConstructor from '../../utils/classConstructors'
+
 class Game extends React.Component {
   componentDidMount() {
-
+    this.props.dispatch({
+      type: 'POPULATE_BOARD',
+      roster: this.props.roster.map(dude => classConstructor(dude))
+    })
   }
-
   render() {
-    const {game, auth} = this.props
-    const cubeStyle = {
-      width: '8vh',
-      height: '8vh',
-      backgroundColor: 'grey',
-      border: '1px solid black'
-    }
-
+    const {game, auth, board} = this.props
     return <div className="container">
       <div className="columns">
         <div className="column is-3">
           {<React.Fragment>
             <h1>You are in a game!</h1>
             <ul>
+              <i className="icon ra ra-arena" />
               <li>Game Id: {game.id}</li>
               <li>Player one ID: {game.player_one}</li>
               <li>Player two ID: {game.player_two}</li>
@@ -30,10 +30,8 @@ class Game extends React.Component {
         </div>
       </div>
       <div className="columns is-centered">
-        {Array(9).fill(0).map((el, i) => <div>
-          {Array(9).fill(0).map((el, j) => <div style={cubeStyle}>
-            X
-          </div>)}
+        {board.map((row, i) => <div>
+          {row.map((cell, j) => <Cell cell={cell} />)}
         </div>)}
 
       </div>

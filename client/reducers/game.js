@@ -3,7 +3,8 @@ const initialState = {
   inQueue: false,
   player_one: null,
   player_two: null,
-  id: null
+  id: null,
+  player_one_turn: true,
 }
 
 export default (state = initialState, action) => {

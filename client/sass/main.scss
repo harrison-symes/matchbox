@@ -1,1 +1,6 @@
-@import './my_bulma.scss'
+@import './my_bulma.scss';
+
+//import rpg awesome
+@import './rpg-awesome/scss/_variables.scss';
+$ra-font-path: './rpg-awesome/fonts/';
+@import './rpg-awesome/scss/rpg-awesome.scss';

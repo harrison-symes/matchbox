@@ -27,7 +27,7 @@ export class Login extends React.Component {
     console.log("login");
     const {user_name, password} = this.state
     this.props.login({user_name, password}, (err) => {
-      if (!err) this.props.location.push('/')
+      if (!err) this.props.history.push('/')
       else this.setState({password: ''})
     })
   }
@@ -37,6 +37,10 @@ export class Login extends React.Component {
       <form className="form box" onSubmit={this.submit}>
         <h1 className="title is-2">Login</h1>
         <hr />
+        <div className="columns">
+          <button className="button is-large is-success is-fullwidth" onClick={() => this.props.loginSpecific('good')}>Good</button>
+          <button className="button is-large is-danger is-fullwidth" onClick={() => this.props.loginSpecific('bad')}>Bad</button>
+        </div>
         {auth.errorMessage && <span className="has-text-danger is-large">{auth.errorMessage}</span>}
         <label className="label is-large has-text-centered">Username
           <input required className="input has-text-centered is-large is-fullwidth" placeholder="User Name" type="text" name="user_name" onChange={this.updateDetails}/>
@@ -54,7 +58,8 @@ const mapStateToProps = ({auth}) => ({auth})
 
 const mapDispatchToProps = dispatch => ({
     login: (creds, cb) => dispatch(loginUser(creds, cb)),
-    loginError: message => dispatch(loginError(message))
+    loginError: message => dispatch(loginError(message)),
+    loginSpecific: user_name => dispatch(loginUser({user_name, password: user_name}))
   })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
