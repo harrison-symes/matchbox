@@ -36,7 +36,14 @@ class Lobby extends React.Component {
     const {game} = this.props
     console.log(game);
     return <div className="section">
-      {game.inGame && <h1>You are in a game {game.id}, {game.player_two}, {game.player_one}</h1>}
+      {game.inGame && <React.Fragment>
+        <h1>You are in a game!</h1>
+        <ul>
+          <li>Game Id: {game.id}</li>
+          <li>Player one ID: {game.player_one}</li>
+          <li>Player two ID: {game.player_two}</li>
+        </ul>
+      </React.Fragment>}
       {game.inQueue
         ? <h1>In Queue..</h1>
         : <button onClick={this.joinQueue}>Join Queue</button>
